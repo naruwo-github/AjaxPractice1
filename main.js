@@ -1,3 +1,4 @@
+/*
 function refreshServerInfo() {
   const req = new XMLHttpRequest();
   req.addEventListener('load', function() {
@@ -25,3 +26,29 @@ function refreshServerInfo() {
 
 //refreshServerInfo();
 setInterval(refreshServerInfo, 1000*0.2);
+*/
+
+//jQueryを使って上の処理を書き換えてみた
+$(function() {
+  let TimerID = setInterval(refreshServerInfo, 1000*0.2);
+
+  function refreshServerInfo() {
+    //htmlファイルのserverInfoの<div>を取得
+    const $serverInfo = $('.serverInfo');
+    $.get('http://localhost:7070').then(
+      //thenの第一引数 サーバーのgetが成功した時
+      function(data) {
+        Object.keys(data).forEach(p => {
+          $(`[data-replace="${p}"]`).text(data[p]);
+        });
+      },
+      //thenの第二引数 サーバーのgetが失敗した時
+      function(jqXHR, textStatus, err) {
+        const $errorInfo = $('.error');
+        console.log("エラーが起こりました: " + err);
+        $errorInfo.text("エラー: サーバーに接続できません。");
+        clearInterval(TimerID);
+      }
+    );
+  }
+})
