@@ -18,6 +18,7 @@ $ node ajaxServer.js
 http://localhost:7070
 を開くと今回サーバー側で用意したプロパティが表示されるはずです。
 
-<img src="source/サーバーの方.png" width="300">
+<img src="source/サーバーの方.png" width="800">
 
 ここで、index.htmlファイルを任意の開くとサーバーから受け取った情報が表示できていること、また更新されていくことがわかると思います。
+<img src="source/Webページの方.png" width="800">
